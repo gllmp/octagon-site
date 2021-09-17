@@ -1,0 +1,86 @@
+@font-face {
+    font-family: "Source Code Pro";
+    src: url("../font/SourceCodePro/SourceCodePro-Regular.ttf") format("truetype"),
+}
+
+@font-face {
+    font-family: "Source Code Pro Medium";
+    src: url("../font/SourceCodePro/SourceCodePro-Medium.ttf") format("truetype"),
+}
+
+body {
+    background-color: #000;
+    color: #fff;
+    font-family: "Source Code Pro Medium", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    line-height: 1em;
+}
+
+.container {
+    max-width: 50rem;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.image-model img {
+    width: 100%;
+    max-width: 706px;
+}
+
+/*
+TABLE
+*/
+.table-container {
+    width: 100%;
+    /* max-width: 50rem; */
+    /* margin: 1rem; */
+    margin-top: 5rem;
+    word-spacing: -5px;
+    letter-spacing: 0;
+    overflow-x: auto;
+}
+
+.table-container .table-title {
+    margin-right: 5rem;
+    text-align: center;
+    font-size: 14px;
+    letter-spacing: -0.2px;
+}
+
+.table-container table {
+    margin-top: 1rem;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 4px;
+}
+
+.table-container table tr {
+    text-align: left;
+}
+
+.table-container table .table-top-row {
+    height: 3rem;
+}
+
+.table-container .table-column-title {
+    font-size: 10px;
+    text-decoration: underline;
+}
+
+.table-container .table-row-title {
+    font-weight: bold;
+    font-size: 13px;
+    letter-spacing: -0.2px;
+}
+
+.table-container table tr td {
+    font-size: 11px;
+}
