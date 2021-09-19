@@ -30,6 +30,11 @@ body {
     justify-content: center;
 }
 
+.image-model {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .image-model img {
     width: 100%;
     max-width: 706px;
@@ -40,16 +45,19 @@ TABLE
 */
 .table-container {
     width: 100%;
+    max-width: 706px;
     /* max-width: 50rem; */
     /* margin: 1rem; */
-    margin-top: 5rem;
+    margin-top: 6rem;
+    margin-left: auto;
+    margin-right: auto;
     word-spacing: -5px;
     letter-spacing: 0;
     overflow-x: auto;
 }
 
 .table-container .table-title {
-    margin-right: 5rem;
+    /* margin-right: 5rem; */
     text-align: center;
     font-size: 14px;
     letter-spacing: -0.2px;
@@ -57,6 +65,9 @@ TABLE
 
 .table-container table {
     margin-top: 1rem;
+    /* margin-left: auto;
+    margin-right: auto;
+    width: 80%; */
     width: 100%;
     border-collapse: separate;
     border-spacing: 0 4px;
