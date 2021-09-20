@@ -1,13 +1,51 @@
+/* FONTS */
 @font-face {
     font-family: "Source Code Pro";
-    src: url("../font/SourceCodePro/SourceCodePro-Regular.ttf") format("truetype"),
+    src: url("../font/SourceCodePro/SourceCodePro-Regular.ttf") format("truetype");
 }
 
 @font-face {
     font-family: "Source Code Pro Medium";
-    src: url("../font/SourceCodePro/SourceCodePro-Medium.ttf") format("truetype"),
+    src: url("../font/SourceCodePro/SourceCodePro-Medium.ttf") format("truetype");
 }
 
+@font-face {
+    font-family: "Asket Narrow";
+    src: url("../font/AsketNarrow/Asket-Narrow-Light.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Calling Code";
+    src: url("../font/CallingCode/CallingCode-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "OCRB Regular";
+    src: url("../font/OCRB/OCRB-Regular.ttf") format("truetype");
+}
+
+/* ANIMATION */
+@keyframes imageGlow {
+    from {
+        filter: drop-shadow(0px 0px 10px rgba(255, 255, 255, 0.4));
+    }
+    
+    to {
+        filter: drop-shadow(0px 0px 20px rgba(255, 255, 255, 0.8));
+    }
+}
+
+@keyframes textGlow {
+    from {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.4), 0 0 10px rgba(255, 255, 255, 0.4);
+    }
+    
+    to {
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.8);
+    }
+}
+
+/* CUSTOM CSS */
 body {
     background-color: #000;
     color: #fff;
