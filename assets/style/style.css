@@ -71,7 +71,7 @@ body {
 }
 
 /* LOGO */
-.image-logo {
+.svg-logo {
     margin: 0;
     position: absolute;
     top: 50%;
@@ -80,7 +80,7 @@ body {
     transform: translate(-50%, -50%);
 }
 
-.image-logo img {
+.svg-logo svg {
     /* width: 100%; */
     height: 100%;
     max-width: 750px;
@@ -88,11 +88,41 @@ body {
     animation: imageGlow 2s ease-in-out infinite alternate;
 }
 
+#octagon-logo:nth-child(1) {
+    fill: rgba(255, 255, 255, 0.0);
+    stroke: #fff;
+    stroke-width: 5;
+    stroke-dasharray: 17540px;
+    stroke-dashoffset: 17540px;
+    animation: pathOffset 2s cubic-bezier(0.5,0.25,0.4,1) forwards, pathFill 2s cubic-bezier(0.5,0.25,0.4,1) forwards;;
+    /* animation-timing-function: cubic-bezier(0.5,0.25,0.4,1); */
+}
+
+@keyframes pathOffset {
+    from {
+        stroke-dashoffset: 17540px;
+    }
+
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes pathFill {
+    from {
+        fill: rgba(255, 255, 255, 0.0);
+    }
+
+    to {
+        fill: rgba(255, 255, 255, 1.0);
+    }
+}
+
 .logo-text {
     font-family: "Asket Narrow", sans-serif;
     text-align: center;
     font-size: 2.2rem;
-    letter-spacing: 8px;
+    letter-spacing: 0.5rem;
     padding-left: 0.5rem;
     animation: textGlow 2s ease-in-out infinite alternate;
 }
