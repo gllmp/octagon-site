@@ -1,0 +1,98 @@
+/* FONTS */
+@font-face {
+    font-family: "Source Code Pro";
+    src: url("../font/SourceCodePro/SourceCodePro-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Source Code Pro Medium";
+    src: url("../font/SourceCodePro/SourceCodePro-Medium.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Asket Narrow";
+    src: url("../font/AsketNarrow/Asket-Narrow-Light.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Calling Code";
+    src: url("../font/CallingCode/CallingCode-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "OCRB Regular";
+    src: url("../font/OCRB/OCRB-Regular.ttf") format("truetype");
+}
+
+/* ANIMATION */
+@keyframes imageGlow {
+    from {
+        filter: drop-shadow(0px 0px 10px rgba(255, 255, 255, 0.4));
+    }
+    
+    to {
+        filter: drop-shadow(0px 0px 20px rgba(255, 255, 255, 0.8));
+    }
+}
+
+@keyframes textGlow {
+    from {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.4), 0 0 10px rgba(255, 255, 255, 0.4);
+    }
+    
+    to {
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.8);
+    }
+}
+
+/* CUSTOM CSS */
+body {
+    background-color: #000;
+    color: #fff;
+    font-family: "Source Code Pro Medium", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    line-height: 1em;
+}
+
+.cover-container {
+    position: relative;
+    width: auto;
+    height: 100vh;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* LOGO */
+.image-logo {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.image-logo img {
+    /* width: 100%; */
+    height: 100%;
+    max-width: 750px;
+    max-height: 604px;
+    animation: imageGlow 2s ease-in-out infinite alternate;
+}
+
+.logo-text {
+    font-family: "Asket Narrow", sans-serif;
+    text-align: center;
+    font-size: 2.2rem;
+    letter-spacing: 0.5rem;
+    padding-left: 0.5rem;
+    animation: textGlow 2s ease-in-out infinite alternate;
+}
