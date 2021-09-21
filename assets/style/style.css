@@ -47,6 +47,7 @@ body {
     text-transform: uppercase;
     text-decoration: none;
     line-height: 1em;
+    overflow: hidden;
 }
 
 .cover-container {
