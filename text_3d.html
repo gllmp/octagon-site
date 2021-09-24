@@ -65,6 +65,7 @@
 
       let object;
 
+      let isReady = false;
       init();
       animate();
 
@@ -225,6 +226,10 @@
       //
 
       function animate() {
+         if (!isReady && scene.children.length > 0 ) {
+            isReady = true;
+            scene.visible = true;
+         }
 
          requestAnimationFrame( animate );
 
