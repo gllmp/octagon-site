@@ -123,9 +123,9 @@ body {
     animation: imageGlow 2s ease-in-out infinite alternate;
 }
 
-#home .svg-logo svg {
+/* #home .svg-logo svg {
     animation: none !important;
-}
+} */
 
 #octagon-logo:nth-child(1) {
     fill: rgba(255, 255, 255, 0.0);
@@ -238,6 +238,15 @@ body {
     }
 }
 
+@media only screen and (max-width: 768px) and (orientation: landscape) {
+	.logo-container {
+	    width: 40%;
+	}
+    
+	.logo-text {
+	    font-size: 1rem;
+	}
+}
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 
