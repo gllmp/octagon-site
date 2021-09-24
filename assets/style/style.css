@@ -123,6 +123,10 @@ body {
     animation: imageGlow 2s ease-in-out infinite alternate;
 }
 
+#home .svg-logo svg {
+    animation: none !important;
+}
+
 #octagon-logo:nth-child(1) {
     fill: rgba(255, 255, 255, 0.0);
     stroke: #fff;
