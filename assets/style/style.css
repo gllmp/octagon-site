@@ -230,7 +230,7 @@ body {
 
 @media only screen and (max-width: 600px) {
     .nav-container {
-        margin-top: 1em;
+        margin-top: 2em;
     }
 
 	.logo-text {
@@ -242,7 +242,7 @@ body {
 	.logo-container {
 	    width: 40%;
 	}
-    
+
 	.logo-text {
 	    font-size: 1rem;
 	}
