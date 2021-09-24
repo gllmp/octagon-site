@@ -11,6 +11,8 @@
       <!-- <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script> -->
       <!-- <script src="/assets/js/three.min.js"></script>
       <script src="/assets/js/OrbitControlsjs"></script> -->
+      <!-- <script src="https://unpkg.com/three"></script> -->
+
       <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
    </head>
    <body>
@@ -36,11 +38,13 @@
 
       import * as THREE from './assets/js/threejs/three.module.js';
 
+      import { OrbitControls } from './assets/js/threejs/OrbitControls.js';
+
       import { DDSLoader } from './assets/js/threejs/loaders/DDSLoader.js';
       import { MTLLoader } from './assets/js/threejs/loaders/MTLLoader.js';
       import { OBJLoader } from './assets/js/threejs/loaders/OBJLoader.js';
 
-      let camera, scene, renderer;
+      let camera, controls, scene, renderer;
 
       let mouseX = 0, mouseY = 0;
 
@@ -55,17 +59,52 @@
 
       function init() {
 
+         // container
          const container = document.createElement( 'div' );
          container.classList.add("threejs-container");
          //container = document.querySelector(".logo-container");
          document.body.appendChild( container );
 
-         camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 2000 );
-         camera.position.z = 0;
+         // camera
+         //camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 2000 );
+         camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.1, 50 );
+
+         //camera.position.z = 0;
+         camera.position.set( 0, 0, 4);
 
          // scene
 
          scene = new THREE.Scene();
+         scene.background = new THREE.Color( 0x000000 );
+			scene.fog = new THREE.FogExp2( 0x000000, 0.002 );
+
+         // renderer
+
+         renderer = new THREE.WebGLRenderer( { antialias: true } );
+         renderer.setPixelRatio( window.devicePixelRatio );
+         renderer.setSize( window.innerWidth, window.innerHeight );
+         container.appendChild( renderer.domElement );
+         document.body.appendChild( renderer.domElement );
+
+         // controls
+         //controls = new OrbitControls( camera, renderer.domElement );
+         //controls.listenToKeyEvents( window ); // optional
+
+         //controls.addEventListener( 'change', render ); // call this only in static scenes (i.e., if there is no animation loop)
+
+         //controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
+         //controls.dampingFactor = 0.05;
+
+         //controls.screenSpacePanning = false;
+
+         // controls.minDistance = 3;
+         // controls.maxDistance = 5;
+
+         // controls.maxPolarAngle = Math.PI / 2;
+
+         //controls.target.set(0, 0, 0);
+
+         // lights
 
          const ambientLight = new THREE.AmbientLight( 0xcccccc, 0.4 );
          scene.add( ambientLight );
@@ -107,26 +146,18 @@
                   .load( 'octagon-logo.obj', function ( obj ) {
                      object = obj;
 
-                     object.position.y = - 95;
+                     //object.position.y = - 95;
                      scene.add( object );
 
                      //camera.add(object);
-                     object.position.set(0, -2, -7);
+                     object.position.set(0, -2, 0);
 
                   }, onProgress, onError );
 
             } );
 
          //
-
-         renderer = new THREE.WebGLRenderer();
-         renderer.setPixelRatio( window.devicePixelRatio );
-         renderer.setSize( window.innerWidth, window.innerHeight );
-         container.appendChild( renderer.domElement );
-
-         document.addEventListener( 'mousemove', onDocumentMouseMove );
-
-         //
+         //document.addEventListener( 'mousemove', onDocumentMouseMove );
 
          window.addEventListener( 'resize', onWindowResize );
 
@@ -144,28 +175,32 @@
 
       }
 
-      function onDocumentMouseMove( event ) {
+      // function onDocumentMouseMove( event ) {
 
-         // mouseX = ( event.clientX - windowHalfX ) / 2;
-         // mouseY = ( event.clientY - windowHalfY ) / 2;
+      //    // mouseX = ( event.clientX - windowHalfX ) / 2;
+      //    // mouseY = ( event.clientY - windowHalfY ) / 2;
 
-      }
+      // }
 
       //
 
       function animate() {
 
          requestAnimationFrame( animate );
+
+         //controls.target.set(object.position.x, object.position.y, object.position.z);
+         //controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
+
          render();
 
       }
 
       function render() {
 
-         camera.position.x += ( mouseX - camera.position.x ) * .05;
-         camera.position.y += ( - mouseY - camera.position.y ) * .05;
+         //camera.position.x += ( mouseX - camera.position.x ) * .05;
+         //camera.position.y += ( - mouseY - camera.position.y ) * .05;
 
-         camera.lookAt( scene.position );
+         //camera.lookAt( scene.position );
 
          if (object != undefined) {
             //object.rotation.x += 0.005;
