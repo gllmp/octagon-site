@@ -82,9 +82,11 @@ body {
 
 .nav-container .nav-link {
     text-decoration: none;
-    color: #fff;
+    background-color: #fff;
+    color: #000;
     display: inline-block;
     margin: 0.5em;
+    padding: 0.1rem;
 }
 
 .nav-container .nav-link:hover {
@@ -194,7 +196,7 @@ body {
     .nav-container {
         margin-top: 1em;
     }
-    
+
 	.logo-text {
         font-size: 5vw;
     }
