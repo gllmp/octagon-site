@@ -1,24 +1,25 @@
 <!-- HEADER INJECTION -->
-
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-
 <style type="text/css">
-    header, footer { display: none; }
-    section { padding-top: 0  !important; }
-  #preFooter {display: none;}
-#page{
-  height:100vh}
- #content {
-  height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+   header, footer { display: none; }
+   section { padding-top: 0  !important; }
+   body {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
    align-items: center;
-  }
-  .image-logo {
-    max-width: 750px;
-    max-height: 604px;
-  }
+   }
+   #preFooter {display: none;}
+   #content {
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   }
+   .sqs-block-html {
+   display: none;
+   }
 </style>
 
 
@@ -41,7 +42,7 @@
 	overflow:hidden;
 	}
 	.cover-container {
-	width: 100vw;
+	width: 90vw;
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;
@@ -54,6 +55,7 @@
 	width: 80%;
 	text-align: center;
 	position: relative;
+	overflow: hidden;
 	}
 	.svg-logo {
 	width: 100%;
@@ -82,19 +84,19 @@
 	/* animation-timing-function: cubic-bezier(0.5,0.25,0.4,1); */
 	}
 	.logo-text {
-	font-family: "Asket Narrow", sans-serif;
+	font-family:  "Asket Narrow", sans-serif;
 	text-align: center;
 	font-size: 2.2rem;
 	/* font-size: 3vw; */
 	letter-spacing: 0.5rem;
 	padding-left: 0.5rem;
-	animation: textGlow 2s ease-in-out infinite alternate;
+	/* animation: textGlow 2s ease-in-out infinite alternate; */
 	/* Center text inside logo */
 	position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    margin-top: 0;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	margin-top: 0;
 	}
 	/* ANIMATION */
 	@keyframes imageGlow {
@@ -136,6 +138,14 @@
 	font-size: 5vw;
 	}
 	}
+	@media only screen and (max-width: 768px) and (orientation: landscape) {
+	.logo-container {
+	width: 40%;
+	}
+	.logo-text {
+	font-size: 1rem;
+	}
+	}
 	/* Small devices (portrait tablets and large phones, 600px and up) */
 	@media only screen and (min-width: 600px) {}
 	/* Medium devices (landscape tablets, 768px and up) */
@@ -159,13 +169,46 @@
 	</div>
  </div>
  <script>
+	let bodyEl = document.querySelector("body");
+	bodyEl.style.height = window.innerHeight + "px";
+	
+	/*
+	window.addEventListener("orientationchange", function() {
+	location.reload();
+	
+	// // vertical
+	// if (window.orientation == "0") {
+	// 	bodyEl.classList.remove("horizontal");
+	// 	bodyEl.classList.add("vertical");
+	
+	// 	bodyEl.style.height = window.innerHeight + "px";
+	// }
+	
+	// // horizontal
+	// if (window.orientation == "90" || window.orientation == "-90") {
+	// 	bodyEl.classList.remove("vertical");
+	// 	bodyEl.classList.add("horizontal");
+	
+	// 	bodyEl.style.height = window.innerHeight + "px";
+	// }
+	}, false);
+	*/
+	
+	window.addEventListener('orientationchange', function() {
+	var afterOrientationChange = function() {
+	bodyEl.style.height = window.innerHeight + "px";
+		window.removeEventListener('resize', afterOrientationChange);
+	};
+	window.addEventListener('resize', afterOrientationChange);
+	});
+	
 	const path = document.querySelector("path");
-	console.log(path.getTotalLength());
+	//console.log(path.getTotalLength());
 	
 	var options = {
-	   strings: ["ÖCTAGON"],
-	   typeSpeed: 20,
-	   cursorChar: '',
+	strings: ["ÖCTAGON"],
+	typeSpeed: 20,
+	cursorChar: '',
 	};
 	
 	var typed = new Typed('.logo-text', options);
