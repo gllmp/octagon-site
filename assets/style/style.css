@@ -94,7 +94,7 @@ body {
     stroke-width: 5;
     stroke-dasharray: 17540px;
     stroke-dashoffset: 17540px;
-    animation: pathOffset 2s cubic-bezier(0.5,0.25,0.4,1) forwards, pathFill 1.8s cubic-bezier(0.5,0.25,0.4,1) forwards;;
+    animation: pathOffset 2s cubic-bezier(0.5,0.25,0.4,1) forwards, pathFill 1.8s cubic-bezier(0.5,0.25,0.4,1) forwards;
     /* animation-timing-function: cubic-bezier(0.5,0.25,0.4,1); */
 }
 
