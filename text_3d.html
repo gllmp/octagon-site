@@ -64,11 +64,12 @@
       let windowHalfY = window.innerHeight / 2;
 
       let object;
+      let textMesh;
 
       let isReady = false;
+
       init();
       animate();
-
 
       function init() {
 
@@ -90,6 +91,7 @@
          scene = new THREE.Scene();
          scene.background = new THREE.Color( 0x000000 );
 			scene.fog = new THREE.FogExp2( 0x000000, 0.002 );
+         scene.visible = false;
 
          // renderer
 
@@ -190,8 +192,10 @@
             textGeometry.center();
             let textMaterial = new THREE.MeshStandardMaterial()
 
-            let textMesh = new THREE.Mesh( textGeometry, textMaterial );
+            textMesh = new THREE.Mesh( textGeometry, textMaterial );
             //textMesh.position.set(0, 0, -6);
+
+            //textMesh.lookAt(camera.position);
 
             scene.add(textMesh);
          });
