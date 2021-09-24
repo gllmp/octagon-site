@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>ÖCTAGON</title>
+      <link rel="stylesheet" href="/assets/style/normalize.css">
+      <link rel="stylesheet" href="/assets/style/style-webgl.css">
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+      <!-- <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script> -->
+      <!-- <script src="/assets/js/three.min.js"></script>
+      <script src="/assets/js/OrbitControlsjs"></script> -->
+      <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+   </head>
+   <body>
+      <div class="cover-container">
+         <div class="logo-container">
+            
+            <p class="logo-text"></p>
+         </div>
+   </div>
+      <script>
+
+         var options = {
+            strings: ["ÖCTAGON"],
+            typeSpeed: 20,
+            cursorChar: '',
+         };
+
+         var typed = new Typed('.logo-text', options);
+      </script>
+
+
+<script type="module">
+
+   import * as THREE from './assets/js/threejs/three.module.js';
+
+   import { OBJLoader } from './assets/js/threejs/loaders/OBJLoader.js';
+
+   let container;
+
+   let camera, scene, renderer;
+
+   let mouseX = 0, mouseY = 0;
+
+   let windowHalfX = window.innerWidth / 2;
+   let windowHalfY = window.innerHeight / 2;
+
+   let object;
+
+   init();
+   animate();
+
+
+   function init() {
+
+      container = document.createElement( 'div' );
+      container.classList.add("threejs-container");
+      //container = document.querySelector(".logo-container");
+      document.body.appendChild( container );
+
+      camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 2000 );
+      camera.position.z = 250;
+
+      // scene
+
+      scene = new THREE.Scene();
+
+      const ambientLight = new THREE.AmbientLight( 0xcccccc, 0.4 );
+      scene.add( ambientLight );
+
+      const pointLight = new THREE.PointLight( 0xffffff, 0.8 );
+      camera.add( pointLight );
+      scene.add( camera );
+
+      // manager
+
+      function loadModel() {
+
+         object.traverse( function ( child ) {
+
+            if ( child.isMesh ) child.material.map = texture;
+
+         } );
+
+         object.position.y = - 95;
+         scene.add( object );
+
+      }
+
+      const manager = new THREE.LoadingManager( loadModel );
+
+      manager.onProgress = function ( item, loaded, total ) {
+
+         console.log( item, loaded, total );
+
+      };
+
+      // texture
+
+      const textureLoader = new THREE.TextureLoader( manager );
+      const texture = textureLoader.load( './assets/models/textures/uv_grid_opengl.jpg' );
+
+      // model
+
+      function onProgress( xhr ) {
+
+         if ( xhr.lengthComputable ) {
+
+            const percentComplete = xhr.loaded / xhr.total * 100;
+            console.log( 'model ' + Math.round( percentComplete, 2 ) + '% downloaded' );
+
+         }
+
+      }
+
+      function onError() {}
+
+      const loader = new OBJLoader( manager );
+      loader.load( './assets/models/obj/male02/male02.obj', function ( obj ) {
+
+         object = obj;
+
+      }, onProgress, onError );
+
+      //
+
+      renderer = new THREE.WebGLRenderer();
+      renderer.setPixelRatio( window.devicePixelRatio );
+      renderer.setSize( window.innerWidth, window.innerHeight );
+      container.appendChild( renderer.domElement );
+
+      document.addEventListener( 'mousemove', onDocumentMouseMove );
+
+      //
+
+      window.addEventListener( 'resize', onWindowResize );
+
+   }
+
+   function onWindowResize() {
+
+      windowHalfX = window.innerWidth / 2;
+      windowHalfY = window.innerHeight / 2;
+
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+
+      renderer.setSize( window.innerWidth, window.innerHeight );
+
+   }
+
+   function onDocumentMouseMove( event ) {
+
+      mouseX = ( event.clientX - windowHalfX ) / 2;
+      mouseY = ( event.clientY - windowHalfY ) / 2;
+
+   }
+
+   //
+
+   function animate() {
+
+      requestAnimationFrame( animate );
+      render();
+
+   }
+
+   function render() {
+
+      camera.position.x += ( mouseX - camera.position.x ) * .05;
+      camera.position.y += ( - mouseY - camera.position.y ) * .05;
+
+      camera.lookAt( scene.position );
+
+      renderer.render( scene, camera );
+
+   }
+
+</script>
+
+
+
+      <!-- <script src="index.js"></script> -->
+   </body>
+</html>

@@ -1,0 +1,142 @@
+<!-- HEADER INJECTION -->
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+<style type="text/css">
+    header, footer { display: none; }
+    section { padding-top: 0  !important; }
+ 	body {
+      
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #preFooter {display: none;}
+ #content {
+  height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+   align-items: center;
+  }
+  .sqs-block-html {
+	  display: none;
+  }
+</style>
+
+
+<!-- CODE -->
+<style>
+	@font-face {
+	font-family: "Asket Narrow";
+	src: url("https://static1.squarespace.com/static/613ea21967023c657715920d/t/6148829f76a961433dac6a1d/1632141983628/Asket-Narrow-Light.ttf") format("truetype");
+	} 
+	/* Prevent text selection */
+	* {
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Safari */
+	-khtml-user-select: none; /* Konqueror HTML */
+	-moz-user-select: none; /* Old versions of Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+	}
+	
+	body {
+	overflow:hidden;
+	}
+	.cover-container {
+	width: 90vw;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+	}
+	/* LOGO */
+	.logo-container {
+	width: 80%;
+	text-align: center;
+	position: relative;
+    overflow: hidden;
+	}
+	.logo-wrapper {
+	width: 100%;
+	}
+	
+	.logo-text {
+	font-family:  "Asket Narrow", sans-serif;
+	text-align: center;
+	font-size: 2.2rem;
+	/* font-size: 3vw; */
+	letter-spacing: 0.5rem;
+	padding-left: 0.5rem;
+	/* animation: textGlow 2s ease-in-out infinite alternate; */
+	/* Center text inside logo */
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 0;
+	}
+
+	/* Media Queries */
+	/* Extra small devices (phones, 600px and down) */
+	@media only screen and (max-width: 600px) {
+	.logo-text {
+	font-size: 5vw;
+	}
+	}
+  
+  @media only screen and (max-width: 768px) and (orientation: landscape) {
+   
+		.logo-container {
+			width: 40%;
+		}
+
+		.logo-text {
+			font-size: 1rem;
+		}
+	}
+  
+	/* Small devices (portrait tablets and large phones, 600px and up) */
+	@media only screen and (min-width: 600px) {}
+	/* Medium devices (landscape tablets, 768px and up) */
+	@media only screen and (min-width: 768px) {
+	/* For desktop: */
+	}
+	/* Large devices (laptops/desktops, 992px and up) */
+	@media only screen and (min-width: 992px) {}
+	/* Extra large devices (large laptops and desktops, 1200px and up) */
+	@media only screen and (min-width: 1200px) {}
+ </style>
+
+ <div class="cover-container">
+	<div class="logo-container">
+	   <div class="logo-wrapper">
+
+		</div>
+	   <p class="logo-text"></p>
+	</div>
+ </div>
+ <script>
+   	let bodyEl = document.querySelector("body");
+	bodyEl.style.height = window.innerHeight + "px";
+
+
+	window.addEventListener('orientationchange', function() {
+    var afterOrientationChange = function() {
+		bodyEl.style.height = window.innerHeight + "px";
+        window.removeEventListener('resize', afterOrientationChange);
+		};
+		window.addEventListener('resize', afterOrientationChange);
+	});
+   	
+	var options = {
+	   strings: ["ÖCTAGON"],
+	   typeSpeed: 20,
+	   cursorChar: '',
+	};
+	
+	var typed = new Typed('.logo-text', options);
+ </script>
