@@ -133,10 +133,19 @@ body {
     /* animation-timing-function: cubic-bezier(0.5,0.25,0.4,1); */
 }
 
+
+.octagon-svg-dark {
+    animation: none !important;
+    stroke: #000 !important;
+    stroke-width: 5 !important;
+    stroke-dashoffset: 0 !important;
+    fill: rgba(0, 0, 0, 1.0) !important;
+}
+
 .logo-text {
     font-family: "Asket Narrow", sans-serif;
     text-align: center;
-    font-size: 3rem;
+    font-size: 3.5rem;
     /* font-size: 2.2rem; */
     /* font-size: 3vw; */
     letter-spacing: 0.5rem;
