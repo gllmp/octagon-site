@@ -28,7 +28,7 @@
 
          window.addEventListener('orientationchange', function() {
          var afterOrientationChange = function() {
-         bodyEl.style.height = window.innerHeight + "px";
+            bodyEl.style.height = window.innerHeight + "px";
             window.removeEventListener('resize', afterOrientationChange);
          };
          window.addEventListener('resize', afterOrientationChange);

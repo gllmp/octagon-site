@@ -22,16 +22,26 @@
             <!-- <p class="logo-text"></p> -->
          </div>
    </div>
-      <!-- <script>
+      <script>
+         let bodyEl = document.querySelector("body");
+      	bodyEl.style.height = window.innerHeight + "px";
 
-         var options = {
-            strings: ["ÖCTAGON"],
-            typeSpeed: 20,
-            cursorChar: '',
+         window.addEventListener('orientationchange', function() {
+         var afterOrientationChange = function() {
+            bodyEl.style.height = window.innerHeight + "px";
+            window.removeEventListener('resize', afterOrientationChange);
          };
+         window.addEventListener('resize', afterOrientationChange);
+         });
 
-         var typed = new Typed('.logo-text', options);
-      </script> -->
+         // var options = {
+         //    strings: ["ÖCTAGON"],
+         //    typeSpeed: 20,
+         //    cursorChar: '',
+         // };
+
+         // var typed = new Typed('.logo-text', options);
+      </script>
 
 
    <script type="module">

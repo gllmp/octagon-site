@@ -113,6 +113,15 @@ canvas {
     }
 }
 
+@media only screen and (max-width: 768px) and (orientation: landscape) {
+	.logo-container {
+	    width: 40%;
+	}
+    
+	.logo-text {
+	    font-size: 1rem;
+	}
+}
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 

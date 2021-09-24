@@ -21,6 +21,16 @@
          </div>
    </div>
       <script>
+         let bodyEl = document.querySelector("body");
+      	bodyEl.style.height = window.innerHeight + "px";
+
+         window.addEventListener('orientationchange', function() {
+         var afterOrientationChange = function() {
+            bodyEl.style.height = window.innerHeight + "px";
+            window.removeEventListener('resize', afterOrientationChange);
+         };
+         window.addEventListener('resize', afterOrientationChange);
+         });
 
          var options = {
             strings: ["ÖCTAGON"],

@@ -19,19 +19,29 @@
       <div class="cover-container">
          <div class="logo-container">
             
-            <!-- <p class="logo-text"></p> -->
+            <p class="logo-text"></p>
          </div>
    </div>
-      <!-- <script>
+   <script>
+         let bodyEl = document.querySelector("body");
+      	bodyEl.style.height = window.innerHeight + "px";
 
-         var options = {
-            strings: ["ÖCTAGON"],
-            typeSpeed: 20,
-            cursorChar: '',
+         window.addEventListener('orientationchange', function() {
+         var afterOrientationChange = function() {
+            bodyEl.style.height = window.innerHeight + "px";
+            window.removeEventListener('resize', afterOrientationChange);
          };
+         window.addEventListener('resize', afterOrientationChange);
+         });
 
-         var typed = new Typed('.logo-text', options);
-      </script> -->
+      var options = {
+         strings: ["ÖCTAGON"],
+         typeSpeed: 20,
+         cursorChar: '',
+      };
+
+      var typed = new Typed('.logo-text', options);
+   </script>
 
 
    <script type="module">
@@ -163,7 +173,7 @@
             scene.add( object );
          }
 
-         const planeGeometry = new THREE.PlaneGeometry(10, 10, 10, 10 );
+         const planeGeometry = new THREE.PlaneGeometry(50, 50, 25, 25);
          const planeMaterial = new THREE.MeshStandardMaterial( {color: 0xffffff, side: THREE.DoubleSide} );
          const plane = new THREE.Mesh( planeGeometry, wireframeMaterial );
 
@@ -173,31 +183,31 @@
          scene.add( plane );
 
          // text
-         const textLoader = new THREE.FontLoader();
+         // const textLoader = new THREE.FontLoader();
          
-         let textGeometry
+         // let textGeometry
 
-         textLoader.load( './assets/font/AsketNarrow/Asket-Narrow_Light.json', function ( font ) {
+         // textLoader.load( './assets/font/AsketNarrow/Asket-Narrow_Light.json', function ( font ) {
 
-            textGeometry = new THREE.TextGeometry( 'ÖCTAGON', {
-                  font: font,
-                  size: 0.4,
-                  height: 0.01,
-                  curveSegments: 4,
-                  bevelEnabled: false,
-                  bevelThickness: 0.02,
-                  bevelSize: 0.05,
-                  bevelSegments: 3
-            } );
+         //    textGeometry = new THREE.TextGeometry( 'ÖCTAGON', {
+         //          font: font,
+         //          size: 0.4,
+         //          height: 0.01,
+         //          curveSegments: 4,
+         //          bevelEnabled: false,
+         //          bevelThickness: 0.02,
+         //          bevelSize: 0.05,
+         //          bevelSegments: 3
+         //    } );
             
-            textGeometry.center();
-            let textMaterial = new THREE.MeshStandardMaterial()
+         //    textGeometry.center();
+         //    let textMaterial = new THREE.MeshStandardMaterial()
 
-            let textMesh = new THREE.Mesh( textGeometry, textMaterial );
-            //textMesh.position.set(0, 0, -6);
+         //    let textMesh = new THREE.Mesh( textGeometry, textMaterial );
+         //    //textMesh.position.set(0, 0, -6);
 
-            scene.add(textMesh);
-         });
+         //    scene.add(textMesh);
+         // });
 
 
          //
