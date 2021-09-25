@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>ÖCTAGON</title>
+      <link rel="stylesheet" href="/assets/style/normalize.css">
+      <link rel="stylesheet" href="/assets/style/style-webgl.css">
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+      <!-- <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script> -->
+      <!-- <script src="/assets/js/three.min.js"></script>
+      <script src="/assets/js/OrbitControlsjs"></script> -->
+      <!-- <script src="https://unpkg.com/three"></script> -->
+
+      <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+   </head>
+   <body>
+      <div class="cover-container">
+         <div class="logo-container">
+            
+            <p class="logo-text"></p>
+         </div>
+   </div>
+   <script>
+         let bodyEl = document.querySelector("body");
+      	bodyEl.style.height = window.innerHeight + "px";
+
+         window.addEventListener('orientationchange', function() {
+         var afterOrientationChange = function() {
+            bodyEl.style.height = window.innerHeight + "px";
+            window.removeEventListener('resize', afterOrientationChange);
+         };
+         window.addEventListener('resize', afterOrientationChange);
+         });
+
+      var options = {
+         strings: ["ÖCTAGON"],
+         typeSpeed: 20,
+         cursorChar: '',
+      };
+
+      var typed = new Typed('.logo-text', options);
+   </script>
+
+
+   <script type="module">
+
+      import * as THREE from './assets/js/threejs/three.module.js';
+
+      import { OrbitControls } from './assets/js/threejs/OrbitControls.js';
+
+      import { DDSLoader } from './assets/js/threejs/loaders/DDSLoader.js';
+      import { MTLLoader } from './assets/js/threejs/loaders/MTLLoader.js';
+      import { OBJLoader } from './assets/js/threejs/loaders/OBJLoader.js';
+
+      import { SVGLoader } from './assets/js/threejs/loaders/SVGLoader.js';
+
+      import { FontLoader } from './assets/js/threejs/loaders/FontLoader.js';
+
+      let camera, controls, scene, renderer;
+
+      let mouseX = 0, mouseY = 0;
+
+      let windowHalfX = window.innerWidth / 2;
+      let windowHalfY = window.innerHeight / 2;
+
+      let object, object2, object3, object4, object5, object6;
+      let objectParticleSystem;
+
+      init();
+      animate();
+
+
+      function init() {
+
+         // container
+         const container = document.createElement( 'div' );
+         container.classList.add("threejs-container");
+         //container = document.querySelector(".logo-container");
+         document.body.appendChild( container );
+
+         // camera
+         //camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 2000 );
+         camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.1, 50 );
+
+         //camera.position.z = 0;
+         camera.position.set( 0, 0, 5);
+
+         // scene
+
+         scene = new THREE.Scene();
+         scene.background = new THREE.Color( 0x000000 );
+			scene.fog = new THREE.FogExp2( 0x000000, 0.15 );
+
+         // renderer
+
+         renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
+         renderer.setPixelRatio( window.devicePixelRatio );
+         renderer.setSize( window.innerWidth, window.innerHeight );
+         container.appendChild( renderer.domElement );
+         document.body.appendChild( renderer.domElement );
+
+         // controls
+         controls = new OrbitControls( camera, renderer.domElement );
+         //controls.listenToKeyEvents( window ); // optional
+
+         //controls.addEventListener( 'change', render ); // call this only in static scenes (i.e., if there is no animation loop)
+
+         controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
+         controls.dampingFactor = 0.05;
+
+         controls.enablePan = false;
+         //controls.screenSpacePanning = false;
+
+         controls.minDistance = 3;
+         controls.maxDistance = 5;
+
+         // controls.maxPolarAngle = Math.PI / 2;
+
+         //controls.target.set(0, 0, 0);
+
+         // lights
+
+         const ambientLight = new THREE.AmbientLight( 0xcccccc, 0.6 );
+         scene.add( ambientLight );
+
+         const pointLight = new THREE.PointLight( 0xffffff, 0.8 );
+         camera.add( pointLight );
+         scene.add( camera );
+
+         // model
+         let standardMaterial = new THREE.MeshStandardMaterial( {color: 0xffffff, transparent: true, opacity: 1.0 } );
+         let standardMaterial2 = new THREE.MeshStandardMaterial( {color: 0xffffff, transparent: true, opacity: 0.8 } );
+         let standardMaterial3 = new THREE.MeshStandardMaterial( {color: 0xffffff, transparent: true, opacity: 0.6 } );
+         let standardMaterial4 = new THREE.MeshStandardMaterial( {color: 0xffffff, transparent: true, opacity: 0.4 } );
+         let standardMaterial5 = new THREE.MeshStandardMaterial( {color: 0xffffff, transparent: true, opacity: 0.2 } );
+         let standardMaterial6 = new THREE.MeshStandardMaterial( {color: 0xffffff, transparent: true, opacity: 0.1 } );
+
+         let wireframeMaterial = new THREE.MeshStandardMaterial( {color: 0xffffff, wireframe: true } );
+         let pointsMaterial = new THREE.PointsMaterial( { size: 0.02, color: 0xffffff, sizeAttenuation: true} )
+
+         const manager = new THREE.LoadingManager( loadModel );
+
+         manager.onProgress = function ( item, loaded, total ) {
+
+            console.log( item, loaded, total );
+
+         };
+
+         function onProgress( xhr ) {
+
+            if ( xhr.lengthComputable ) {
+
+               const percentComplete = xhr.loaded / xhr.total * 100;
+               console.log( 'model ' + Math.round( percentComplete, 2 ) + '% downloaded' );
+
+            }
+
+         }
+
+         function onError() {}
+
+            const loader = new OBJLoader( manager );
+            loader.load( './assets/models/obj/Octagon/octagon-logo.obj', function ( obj ) {
+
+            object = obj;
+
+         }, onProgress, onError );
+
+         function loadModel() {
+
+            object.traverse( function ( child ) {
+
+               //if ( child.isMesh ) child.material.map = texture;
+               if ( child.isMesh ) child.material = standardMaterial;
+
+            } );
+
+            object.position.set(0, 0, 0);
+            object.scale.set(4, 4, 4);
+            object.children[0].geometry.center();
+
+            object2 = object.children[0].clone();
+            object2.position.set(0, 0, 0);
+            object2.geometry.center();
+            object2.material = standardMaterial2;
+
+            object3 = object.children[0].clone();
+            object3.position.set(0, 0, 0);
+            object3.geometry.center();
+            object3.material = standardMaterial3;
+
+            object4 = object.children[0].clone();
+            object4.position.set(0, 0, 0);
+            object4.geometry.center();
+            object4.material = standardMaterial4;
+
+            object5 = object.children[0].clone();
+            object5.position.set(0, 0, 0);
+            object5.geometry.center();
+            object5.material = standardMaterial5;
+
+            object6 = object.children[0].clone();
+            object6.position.set(0, 0, 0);
+            object6.geometry.center();
+            object6.material = standardMaterial6;
+
+            scene.add( object );
+            scene.add( object2 );
+            scene.add( object3 );
+            scene.add( object4 );
+            scene.add( object5 );
+            scene.add( object6 );
+
+            objectParticleSystem = new THREE.ParticleSystem( object.children[0].geometry, pointsMaterial );
+            objectParticleSystem.position.set(0, -2, 0);
+            //scene.add( objectParticleSystem );
+         }
+
+
+         //const planeGeometry = new THREE.PlaneGeometry(50, 50, 25, 25);
+         //const planeMaterial = new THREE.MeshStandardMaterial( {color: 0xffffff, side: THREE.DoubleSide} );
+         //const plane = new THREE.Mesh( planeGeometry, pointsMaterial );
+
+         //plane.position.set(0, -2.5, 0);
+         //plane.rotation.set(1.6, 0, 0);
+
+         let planeGeometry = new THREE.PlaneGeometry(50, 50, 100, 100);
+         let planeMaterial = new THREE.PointsMaterial( { size: 0.02, color: 0xffffff, sizeAttenuation: true} )
+
+         let planeParticleSystem = new THREE.ParticleSystem( planeGeometry, planeMaterial );
+			planeParticleSystem.position.set(0, -2.5, 0);
+         planeParticleSystem.rotation.set(1.6, 0, 0);
+
+         //scene.add( planeParticleSystem );
+
+
+         // text
+         // const textLoader = new THREE.FontLoader();
+         
+         // let textGeometry
+
+         // textLoader.load( './assets/font/AsketNarrow/Asket-Narrow_Light.json', function ( font ) {
+
+         //    textGeometry = new THREE.TextGeometry( 'ÖCTAGON', {
+         //          font: font,
+         //          size: 0.4,
+         //          height: 0.01,
+         //          curveSegments: 4,
+         //          bevelEnabled: false,
+         //          bevelThickness: 0.02,
+         //          bevelSize: 0.05,
+         //          bevelSegments: 3
+         //    } );
+            
+         //    textGeometry.center();
+         //    let textMaterial = new THREE.MeshStandardMaterial()
+
+         //    let textMesh = new THREE.Mesh( textGeometry, textMaterial );
+         //    //textMesh.position.set(0, 0, -6);
+
+         //    scene.add(textMesh);
+         // });
+
+
+         //
+         //document.addEventListener( 'mousemove', onDocumentMouseMove );
+
+         window.addEventListener( 'resize', onWindowResize );
+
+      }
+
+      function onWindowResize() {
+
+         windowHalfX = window.innerWidth / 2;
+         windowHalfY = window.innerHeight / 2;
+
+         camera.aspect = window.innerWidth / window.innerHeight;
+         camera.updateProjectionMatrix();
+
+         renderer.setSize( window.innerWidth, window.innerHeight );
+
+      }
+
+      // function onDocumentMouseMove( event ) {
+
+      //    // mouseX = ( event.clientX - windowHalfX ) / 2;
+      //    // mouseY = ( event.clientY - windowHalfY ) / 2;
+
+      // }
+
+      //
+
+      function animate() {
+
+         requestAnimationFrame( animate );
+
+         //controls.target.set(object.position.x, object.position.y, object.position.z);
+         controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
+
+         render();
+      }
+
+      function render() {
+
+         //camera.position.x += ( mouseX - camera.position.x ) * .05;
+         //camera.position.y += ( - mouseY - camera.position.y ) * .05;
+
+         //camera.lookAt( scene.position );
+
+         if (object != undefined) {
+            //object.rotation.x += 0.005;
+            object.rotation.y += 0.01;
+            object2.rotation.y += 0.02;
+            object3.rotation.y += 0.0202;
+            object4.rotation.y += 0.0203;
+            object5.rotation.y += 0.0204;
+            object6.rotation.y += 0.0205;
+            //objectParticleSystem.rotation.y += 0.02;
+         }
+
+         renderer.render( scene, camera );
+
+      }
+
+   </script>
+
+      <!-- <script src="index.js"></script> -->
+   </body>
+</html>
