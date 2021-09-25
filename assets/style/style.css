@@ -80,6 +80,10 @@ body {
     white-space: pre;
 }
 
+.nav-container .load-log {
+    white-space: pre-line;
+}
+
 .nav-container .nav-link {
     text-decoration: none;
     background-color: #fff;
