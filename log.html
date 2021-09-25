@@ -8,6 +8,8 @@
       <link rel="stylesheet" href="/assets/style/normalize.css">
       <link rel="stylesheet" href="/assets/style/style.css">
       <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+      <link rel="stylesheet" type="text/css" href="/assets/style/loading-bar.css"/>
+      <script type="text/javascript" src="/assets/js/loading-bar/loading-bar.js"></script>
    </head>
    <body id="home">
       <div class="nav-container">
@@ -15,6 +17,9 @@
          <p class="nav-log"></p>
       </div>
       <div class="cover-container">
+         <div class="loading-bar-container">
+            <div id="log-loading-bar" class="ldBar" data-value="0" data-precision="0.1" data-duration="2"></div>            
+         </div>
          <div class="logo-container hidden">
             <div class="svg-logo">
                   <svg  viewBox="0 0 1133 1408" preserveAspectRatio="xMinYMin meet" class="svg-content" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -40,9 +45,14 @@
          //console.log(path.getTotalLength());
 
          // logo title
+         let loadingBar = new ldBar("#log-loading-bar", {
+            "stroke": '#fff',
+            "stroke-width": 1,
+            "preset": "line",
+         });
 
-      
-         // nav log
+         loadingBar.set(100);
+                  // nav log
          var loadData = new Typed('.load-log', {
             strings: ['loading octagon software...\n\n sending request to server...\n\n TLS authentication pending...\n\n data encryption ok...\n\n searching database...\n\n assets download ok...\n\n\n\n ::login successful::^500\n ' ],
             typeSpeed: 1,
@@ -50,7 +60,9 @@
             loop: false,
             // shuffle: true,
             // cursorChar: '_',
-            onComplete: function(self) { 
+            onComplete: function(self) {
+               document.querySelector(".loading-bar-container").classList.add("hidden");
+
                document.querySelector(".load-log").classList.add("hidden");
                document.querySelector(".typed-cursor").classList.add("hidden");
 
@@ -59,7 +71,7 @@
                   typeSpeed: 20,
                   backSpeed: 0,
                   loop: false,
-                  onComplete: function(self) { 
+                  onComplete: function(self) {
                      document.querySelector(".logo-container").classList.remove("hidden");
 
                      var options = {

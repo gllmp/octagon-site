@@ -102,6 +102,22 @@ body {
     display: none;
 }
 
+.loading-bar-container {
+
+}
+
+#log-loading-bar {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 50px;
+}
+
+.ldBar-label {
+    position: absolute;
+    bottom: 1em;
+    right: 0;
+}
+
 .logo-container {
     width: 60%;
     text-align: center;
