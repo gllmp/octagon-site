@@ -45,16 +45,17 @@
             cursorChar: '',
          };
 
-         var typed = new Typed('.logo-text', options);
       
          // nav log
          var logData = new Typed('.nav-log', {
-            strings: ['loaded data...^100\n\n `<a class="nav-link" href="log.html">-log</a>`\n `<a class="nav-link" href="glow.html">-glow</a>`\n `<a class="nav-link" href="dark.html">-dark</a>`\n `<a class="nav-link" href="path.html">-path</a>`\n `<a class="nav-link" href="fade.html">-fade</a>`\n `<a class="nav-link" href="obj.html">-obj</a>`\n `<a class="nav-link" href="text_3d.html">-text_3d</a>`\n `<a class="nav-link" href="wireframe.html">-wireframe</a>`\n `<a class="nav-link" href="points.html">-points</a>`\n `<a class="nav-link" href="ascii.html">-ascii</a>`\n ' ],
+            strings: ['loaded data...^100\n\n `<a class="nav-link" href="log.html">-log</a>`\n `<a class="nav-link" href="glow.html">-glow</a>`\n `<a class="nav-link" href="dark.html">-dark</a>`\n `<a class="nav-link" href="path.html">-path</a>`\n `<a class="nav-link" href="fade.html">-fade</a>`\n `<a class="nav-link" href="obj.html">-obj</a>`\n `<a class="nav-link" href="text_3d.html">-text_3d</a>`\n `<a class="nav-link" href="wireframe.html">-wireframe</a>`\n `<a class="nav-link" href="points.html">-points</a>`\n `<a class="nav-link" href="rings.html">-rings</a>`\n `<a class="nav-link" href="ascii.html">-ascii</a>`\n ' ],
             typeSpeed: 20,
             backSpeed: 0,
             loop: false,
             onComplete: function(self) { 
                document.querySelector(".logo-container").classList.remove("hidden");
+
+               var typed = new Typed('.logo-text', options);
             }
          });        
       </script>
