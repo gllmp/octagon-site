@@ -54,6 +54,8 @@
       import { MTLLoader } from './assets/js/threejs/loaders/MTLLoader.js';
       import { OBJLoader } from './assets/js/threejs/loaders/OBJLoader.js';
 
+      import { SVGLoader } from './assets/js/threejs/loaders/SVGLoader.js';
+
       import { FontLoader } from './assets/js/threejs/loaders/FontLoader.js';
 
       let camera, controls, scene, renderer;
@@ -127,6 +129,10 @@
          scene.add( camera );
 
          // model
+         let standardMaterial = new THREE.MeshStandardMaterial( {color: 0xffffff } );
+         let wireframeMaterial = new THREE.MeshStandardMaterial( {color: 0xffffff, wireframe: true } );
+         let pointsMaterial = new THREE.PointsMaterial( { color: 0xffffff } );
+
 
          const manager = new THREE.LoadingManager( loadModel );
 
@@ -156,10 +162,6 @@
 
          }, onProgress, onError );
 
-         let standardMaterial = new THREE.MeshStandardMaterial( {color: 0xffffff } );
-         let wireframeMaterial = new THREE.MeshStandardMaterial( {color: 0xffffff, wireframe: true } );
-         let pointsMaterial = new THREE.PointsMaterial( { color: 0xffffff } );
-
          function loadModel() {
 
             object.traverse( function ( child ) {
@@ -173,6 +175,67 @@
 
             scene.add( object );
          }
+
+         // instantiate a loader
+         // const loader = new SVGLoader();
+
+         // // load a SVG resource
+         // loader.load(
+         //    // resource URL
+         //    './assets/img/LOGO_WHITE.svg',
+         //    // called when the resource is loaded
+         //    function ( data ) {
+
+         //       const paths = data.paths;
+         //       const group = new THREE.Group();
+         //       group.scale.multiplyScalar( 0.001 );
+         //       //group.scale.y *= -1;
+               
+         //       for ( let i = 0; i < paths.length; i ++ ) {
+
+         //          const path = paths[ i ];
+
+         //          const material = new THREE.MeshBasicMaterial( {
+         //             color: path.color,
+         //             side: THREE.DoubleSide,
+         //             depthWrite: false
+         //          } );
+
+         //          const shapes = SVGLoader.createShapes( path );
+
+         //          for ( let j = 0; j < shapes.length; j ++ ) {
+
+         //             const shape = shapes[ j ];
+         //             const geometry = new THREE.ShapeGeometry( shape );
+         //             const mesh = new THREE.Mesh( geometry, material );
+         //             group.add( mesh );
+
+         //          }
+
+         //       }
+               
+         //       object = group;
+         //       object.position.set(0, -2, 0);
+               
+         //       // group.position.set(0,0,0)
+         //       // group.scale.set(200)
+         //       scene.add( group );
+
+         //    },
+         //    // called when loading is in progresses
+         //    function ( xhr ) {
+
+         //       console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+         //    },
+         //    // called when loading has errors
+         //    function ( error ) {
+
+         //       console.log( 'An error happened' );
+
+         //    }
+         // );
+
 
          const planeGeometry = new THREE.PlaneGeometry(50, 50, 25, 25);
          const planeMaterial = new THREE.MeshStandardMaterial( {color: 0xffffff, side: THREE.DoubleSide} );
