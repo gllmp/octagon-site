@@ -260,6 +260,10 @@ body {
 	.logo-text {
         font-size: 1.25rem;
     }
+
+    #log-loading-bar {
+        width: 50% !important;
+    }
 }
 
 @media only screen and (max-width: 768px) and (orientation: landscape) {
