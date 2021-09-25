@@ -110,6 +110,8 @@ body {
     width: 100% !important;
     height: auto !important;
     max-height: 50px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .ldBar-label {
@@ -259,6 +261,10 @@ body {
 
 	.logo-text {
         font-size: 1.25rem;
+    }
+
+    .loading-bar-container {
+        margin-top: 20em;
     }
 
     #log-loading-bar {
