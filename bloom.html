@@ -62,6 +62,7 @@
       import { RenderPass } from './assets/js/threejs/postprocessing/RenderPass.js';
       import { UnrealBloomPass } from './assets/js/threejs/postprocessing/UnrealBloomPass.js';
       import { FilmPass } from './assets/js/threejs/postprocessing/FilmPass.js';
+      //import { OutlinePass } from './assets/js/threejs/postprocessing/OutlinePass.js';
 
 
       let camera, controls, scene, renderer;
@@ -304,6 +305,8 @@
 
          const filmPass = new FilmPass(0.8);
          //filmPass.noiseIntensity = 2;
+
+         //const outlinePass = new OutlinePass();
 
          composer = new EffectComposer( renderer );
          composer.addPass( renderScene );
