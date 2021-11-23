@@ -1,6 +1,11 @@
 @font-face {
+    font-family: "Source Code Pro Medium";
+    src: url("https://static1.squarespace.com/static/54949475e4b002362818f89d/t/619d067718a84c2fd1b77f22/1637680759477/SourceCodePro-Medium.ttf") format("truetype");
+}
+
+@font-face {
     font-family: "Asket Narrow";
-    src: url("https://raw.githubusercontent.com/gllmp/octagon-site/main/assets/font/AsketNarrow/Asket-Narrow_Light.json") format("truetype");
+    src: url("https://static1.squarespace.com/static/54949475e4b002362818f89d/t/619ae3046e6e6e3aef6f7260/1637540613093/Asket-Narrow-Light.ttf") format("truetype");
 }
 
 /* CUSTOM CSS */
