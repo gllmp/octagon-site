@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>ÖCTAGON</title>
+      <link rel="stylesheet" href="https://octagon-exe.com/s/normalize.css">
+      <link rel="stylesheet" href="https://octagon-exe.com/s/style-home-min.css">
+      <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+      <link rel="stylesheet" type="text/css" href="https://octagon-exe.com/s/loading-bar.css"/>
+      <script type="text/javascript" src="https://octagon-exe.com/s/loading-bar.js"></script>
+   </head>
+   <body>
+      <!-- <div id="home" class="log-points">
+         <div class="nav-container">
+            <p class="load-log"></p>
+            <p class="nav-log"></p>
+         </div>
+         <div class="cover-container">
+            <div class="loading-bar-container">
+               <div id="log-loading-bar" class="ldBar" data-value="0" data-precision="0.1" data-duration="2"></div>            
+            </div>
+            <div class="logo-container hidden">
+               <a class="logo-link" href="https://www.octagon-exe.com/home">
+                  <img src="https://octagon-exe.com/s/LOGO_WHITE.png" alt="octagon logo" />
+                  <p class="logo-title"></p>
+               </a>
+            </div>
+         </div> -->
+
+         <script>
+            const htmlStr = "<div id='home' class='log-points'><div class='nav-container'><p class='load-log'></p><p class='nav-log'></p></div><div class='cover-container'><div class='loading-bar-container'><div id='log-loading-bar' class='ldBar' data-value='0' data-precision='0.1' data-duration='2'></div></div><div class='logo-container hidden'><a class='logo-link' href='https://www.octagon-exe.com/home'><img src='https://octagon-exe.com/s/LOGO_WHITE.png' alt='octagon logo' /><p class='logo-title'></p></a></div></div>";
+            document.body.insertAdjacentHTML('beforeend', htmlStr);
+         </script>
+
+         <script type="module">
+            import * as THREE from 'https://unpkg.com/three@0.132.0/build/three.module.js';
+
+            import * as Detector from 'https://unpkg.com/three@0.132.0/examples/jsm/WebGL.js';
+
+            import { OrbitControls } from 'https://unpkg.com/three@0.132.0/examples/jsm/controls/OrbitControls.js?module';
+
+            import { OBJLoader } from 'https://unpkg.com/three@0.132.0/examples/jsm/loaders/OBJLoader.js?module';
+
+            import { FontLoader } from 'https://unpkg.com/three@0.134.0/examples/jsm/loaders/FontLoader.js?module';
+
+            let camera, controls, scene, renderer;
+
+            let mouseX = 0, mouseY = 0;
+
+            let windowHalfX = window.innerWidth / 2;
+            let windowHalfY = window.innerHeight / 2;
+
+            // let light1, light2, light3, light4
+            let object;
+            let objectParticleSystem;
+
+            let planeParticleSystem;
+            let sphereParticleSystem;
+
+            let textMesh;
+
+            let isReady = false;
+
+            function init() {
+
+               // container
+               const container = document.createElement( 'div' );
+               container.classList.add("threejs-container");
+               document.body.appendChild( container );
+
+               // camera
+               camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.1, 2000 );
+
+               camera.position.set(0, 0, 5);
+
+               // scene
+
+               scene = new THREE.Scene();
+               scene.background = new THREE.Color( 0x000000 );
+               scene.fog = new THREE.FogExp2( 0x000000, 0.002 );
+
+               // renderer
+
+               renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
+               renderer.setPixelRatio( window.devicePixelRatio );
+               renderer.setSize( window.innerWidth, window.innerHeight );
+               container.appendChild( renderer.domElement );
+               //document.body.appendChild( renderer.domElement );
+
+               // controls
+               controls = new OrbitControls( camera, renderer.domElement );
+               //controls.listenToKeyEvents( window ); // optional
+
+               //controls.addEventListener( 'change', render ); // call this only in static scenes (i.e., if there is no animation loop)
+
+               controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
+               controls.dampingFactor = 0.05;
+
+               controls.enablePan = false;
+               //controls.screenSpacePanning = false;
+
+               controls.minDistance = 4;
+               controls.maxDistance = 6;
+
+               // controls.maxPolarAngle = Math.PI / 2;
+
+               //controls.target.set(0, 0, 0);
+
+               // lights
+               // const sphere = new THREE.SphereGeometry( 0.5, 16, 8 );
+
+               // light1 = new THREE.PointLight( 0xffffff, 0.5, 0, 100);
+               // light1.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xffffff } ) ) );
+               // scene.add( light1 );
+
+               const ambientLight = new THREE.AmbientLight( 0xcccccc, 0.4 );
+               scene.add( ambientLight );
+
+               const pointLight = new THREE.PointLight( 0xffffff, 0.8 );
+               camera.add( pointLight );
+               scene.add( camera );
+
+               // model
+               let standardMaterial = new THREE.MeshStandardMaterial( {color: 0xffffff, transparent: true, opacity: 1.0 } );
+               let wireframeMaterial = new THREE.MeshStandardMaterial( {color: 0xffffff, wireframe: true } );
+               let pointsMaterial = new THREE.PointsMaterial( { size: 0.1, color: 0xffffff, sizeAttenuation: true} )
+
+               const manager = new THREE.LoadingManager( loadModel );
+
+               manager.onProgress = function ( item, loaded, total ) {
+
+                  //console.log( item, loaded, total );
+
+               };
+
+               function onProgress( xhr ) {
+
+                  if ( xhr.lengthComputable ) {
+
+                     const percentComplete = xhr.loaded / xhr.total * 100;
+                     //console.log( 'model ' + Math.round( percentComplete, 2 ) + '% downloaded' );
+
+                  }
+
+               }
+
+               function onError() {}
+
+                  const loader = new OBJLoader( manager );
+                  loader.load( 'https://raw.githubusercontent.com/gllmp/octagon-site/main/assets/models/obj/Octagon/octagon-logo.obj', function ( obj ) {
+
+                  object = obj;
+
+               }, onProgress, onError );
+
+               function loadModel() {
+
+                  object.traverse( function ( child ) {
+
+                     //if ( child.isMesh ) child.material.map = texture;
+                     if ( child.isMesh ) child.material = standardMaterial;
+
+                  } );
+
+                  object.children[0].geometry.center();
+                  object.position.set(0, 0, 0);
+
+                  scene.add(object);
+
+                  //objectParticleSystem = new THREE.ParticleSystem( object.children[0].geometry, pointsMaterial );
+                  //objectParticleSystem.position.set(0, -2, 0);
+                  //scene.add( objectParticleSystem );
+               }
+
+
+               //const planeGeometry = new THREE.PlaneGeometry(50, 50, 25, 25);
+               //const planeMaterial = new THREE.MeshStandardMaterial( {color: 0xffffff, side: THREE.DoubleSide} );
+               //const plane = new THREE.Mesh( planeGeometry, pointsMaterial );
+
+               //plane.position.set(0, -2.5, 0);
+               //plane.rotation.set(1.6, 0, 0);
+
+               let planeGeometry = new THREE.PlaneGeometry(100, 100, 20, 20);
+               let planeMaterial = new THREE.PointsMaterial( { size: 0.05, color: 0xffffff, sizeAttenuation: true} )
+
+               planeParticleSystem = new THREE.ParticleSystem( planeGeometry, planeMaterial );
+               planeParticleSystem.position.set(0, -5, 0);
+               planeParticleSystem.rotation.set(1.6, 0, 0);
+
+               scene.add( planeParticleSystem );
+
+               // sphere
+               sphereParticleSystem = new THREE.ParticleSystem( new THREE.SphereGeometry( 20, 100, 20 ), pointsMaterial );
+               sphereParticleSystem.position.set(0, 0, 0);
+               //sphereParticleSystem.scale.set(10, 10, 10);
+
+               scene.add( sphereParticleSystem );
+
+
+               // text
+               const textLoader = new THREE.FontLoader();
+               
+               let textGeometry
+
+               textLoader.load( 'https://raw.githubusercontent.com/gllmp/octagon-site/main/assets/font/AsketNarrow/Asket-Narrow_Light.json', function ( font ) {
+
+                  textGeometry = new THREE.TextGeometry( 'Ö C T A G O N', {
+                        font: font,
+                        size: 0.2,
+                        height: 0.01,
+                        curveSegments: 4,
+                        bevelEnabled: false,
+                        bevelThickness: 0.02,
+                        bevelSize: 0.05,
+                        bevelSegments: 3
+                  } );
+                  
+                  textGeometry.center();
+                  let textMaterial = new THREE.MeshStandardMaterial()
+
+                  textMesh = new THREE.Mesh( textGeometry, textMaterial );
+                  //textMesh.position.set(0, 0, -6);
+
+                  //textMesh.lookAt(camera.position);
+
+                  scene.add(textMesh);
+               });
+
+               //
+               //document.addEventListener( 'mousemove', onDocumentMouseMove );
+
+               window.addEventListener( 'resize', onWindowResize );
+
+            }
+
+            function onWindowResize() {
+
+               windowHalfX = window.innerWidth / 2;
+               windowHalfY = window.innerHeight / 2;
+
+               camera.aspect = window.innerWidth / window.innerHeight;
+               camera.updateProjectionMatrix();
+
+               renderer.setSize( window.innerWidth, window.innerHeight );
+
+            }
+
+            // function onDocumentMouseMove( event ) {
+
+            //    // mouseX = ( event.clientX - windowHalfX ) / 2;
+            //    // mouseY = ( event.clientY - windowHalfY ) / 2;
+
+            // }
+
+            //
+
+            function animate() {
+               if (!isReady && scene.children.length > 0 ) {
+                  isReady = true;
+                  scene.visible = true;
+               }
+
+               requestAnimationFrame( animate );
+
+               //controls.target.set(object.position.x, object.position.y, object.position.z);
+               controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
+
+               render();
+            }
+
+            function render() {
+
+               //camera.position.x += ( mouseX - camera.position.x ) * .05;
+               //camera.position.y += ( - mouseY - camera.position.y ) * .05;
+
+               //camera.lookAt( scene.position );
+
+               if (textMesh) textMesh.lookAt(camera.position);
+
+               if (object != undefined) {
+                  //object.rotation.x += 0.005;
+                  object.rotation.y += 0.01;
+                  //objectParticleSystem.rotation.y += 0.02;
+                  planeParticleSystem.rotation.z += 0.00025;
+                  sphereParticleSystem.rotation.y += 0.001;
+               }
+
+               // const time = Date.now() * 0.0005;
+               // light1.position.x = Math.sin( time * 0.7 ) * 30;
+               // light1.position.y = Math.cos( time * 0.5 ) * 40;
+               // light1.position.z = Math.cos( time * 0.3 ) * 30;
+
+               renderer.render( scene, camera );
+            }
+
+            let bodyEl = document.querySelector("body");
+            bodyEl.style.height = window.innerHeight + "px";
+
+            window.addEventListener('orientationchange', function() {
+            var afterOrientationChange = function() {
+               bodyEl.style.height = window.innerHeight + "px";
+               window.removeEventListener('resize', afterOrientationChange);
+            };
+            window.addEventListener('resize', afterOrientationChange);
+            });
+
+            //const path = document.querySelector("path");
+            //console.log(path.getTotalLength());
+
+            // logo title
+            let loadingBar = new ldBar("#log-loading-bar", {
+               "stroke": '#fff',
+               "stroke-width": 1,
+               "preset": "line",
+               "duration": 2.5
+            });
+
+            loadingBar.set(100);
+                     // nav log
+            var loadData = new Typed('.load-log', {
+               strings: ['loading octagon software...\n\n sending request to server...\n\n TLS authentication pending...\n\n data encryption ok...\n\n searching database...\n\n assets download ok...\n\n\n\n ::login successful::^500\n ' ],
+               typeSpeed: 1,
+               backSpeed: 0,
+               loop: false,
+               // shuffle: true,
+               // cursorChar: '_',
+               onComplete: function(self) {
+                  document.querySelector(".loading-bar-container").classList.add("hidden");
+
+                  document.querySelector(".load-log").classList.add("hidden");
+                  document.querySelector(".typed-cursor").classList.add("hidden");
+
+                  var logData = new Typed('.nav-log', {
+                     strings: ['access data...^100\n\n `<a class="nav-link" href="https://www.octagon-exe.com/home">-home</a>`\n `<a class="nav-link" href="https://www.octagon-exe.com/shop">-shop</a>`\n `<a class="nav-link" href="https://www.octagon-exe.com/back-ups">-back_ups</a>`\n `<a class="nav-link" href="https://www.instagram.com/__octagon__/">-instagram</a>`\n `<a class="nav-link" href="https://www.octagon-exe.com/contact">-contact</a>`\n ' ],
+                     typeSpeed: 20,
+                     backSpeed: 0,
+                     loop: false,
+                     onTypingPaused: function(self) {
+                        // document.querySelector(".logo-container").classList.remove("hidden");
+
+                        // var options = {
+                        //    strings: ["ÖCTAGON"],
+                        //    typeSpeed: 20,
+                        //    cursorChar: '',
+                        // };
+
+                        // var typed = new Typed('.logo-text', options);
+
+                        if (Detector.WEBGL.isWebGLAvailable() ) {
+                           init();
+                           animate();
+                                             
+                           // setTimeout(() => {
+                           //    document.querySelector("canvas").style.opacity = 1;
+                           // }, 100);
+                        } else {
+                           // const warning = Detector.WEBGL.getWebGLErrorMessage();
+                           // document.getElementsByClassName('cover-container')[0].appendChild( warning );
+
+                           document.getElementsByClassName('logo-container')[0].classList.remove("hidden");
+
+                           var options = {
+                              strings: ["ÖCTAGON"],
+                              typeSpeed: 20,
+                              cursorChar: '',
+                           };
+
+                           var typed = new Typed('.logo-title', options);
+                        }
+                     }
+                  });
+               }
+            });
+         </script>
+      </div>
+   </body>
+</html>
