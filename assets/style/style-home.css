@@ -1,0 +1,373 @@
+@font-face {
+    font-family: "Asket Narrow";
+    src: url("https://static1.squarespace.com/static/54949475e4b002362818f89d/t/619ae3046e6e6e3aef6f7260/1637540613093/Asket-Narrow-Light.ttf") format("truetype");
+}
+
+/* CUSTOM CSS */
+
+/* Prevent text selection */
+* {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+}
+
+body {
+    background-color: #000;
+    color: #fff;
+    font-family: "Source Code Pro Medium", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    line-height: 1em;
+    overflow: hidden;
+}
+
+.cover-container {
+    position: relative;
+    width: auto;
+    height: 100vh;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* WEBGL */
+.threejs-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+canvas {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.threejs-container canvas {
+    /* visibility: visible;
+    opacity: 0;
+    transition: opacity 100ms linear; */
+    animation: fade 0.8s cubic-bezier(0.5,0.25,0.4,1) 1 normal;
+}
+
+/* LOGO */
+.nav-container {
+    width: 20%;
+    height: 100%;
+    margin-top: 4em;
+    margin-left: 2em;
+    font-size: 12px;
+    line-height: normal;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    position: absolute;
+    z-index: 1;
+}
+
+.nav-container .nav-log {
+    white-space: pre;
+}
+
+.nav-container .load-log {
+    white-space: pre-line;
+}
+
+.nav-container .nav-link {
+    text-decoration: none;
+    background-color: #fff;
+    color: #000;
+    display: inline-block;
+    margin: 0.5em;
+    padding: 0.2rem;
+}
+
+.nav-container .nav-link:hover {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+/* LOGO */
+.hidden {
+    display: none;
+}
+
+.loading-bar-container {
+
+}
+
+#log-loading-bar {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ldBar-label {
+    position: absolute;
+    bottom: 1em;
+    right: 0;
+}
+
+.logo-container {
+    width: 60%;
+    text-align: center;
+    position: relative;
+}
+
+.log-points .logo-container img {
+    width: 40%;
+    max-width: 550px;
+    animation: fade 0.8s cubic-bezier(0.5,0.25,0.4,1) 1 normal;
+}
+
+.svg-logo {
+    width: 100%;
+    /* margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center */
+}
+
+.svg-logo svg {
+    /* width: 100%; */
+    height: 100%;
+    max-width: 750px;
+    max-height: 604px;
+    animation: imageGlow 2s ease-in-out infinite alternate;
+}
+
+/* #home .svg-logo svg {
+    animation: none !important;
+} */
+
+#octagon-logo:nth-child(1) {
+    fill: rgba(255, 255, 255, 0.0);
+    stroke: #fff;
+    stroke-width: 5;
+    stroke-dasharray: 17540px;
+    stroke-dashoffset: 17540px;
+    animation: pathOffset 2s cubic-bezier(0.5,0.25,0.4,1) forwards, pathFill 1.8s cubic-bezier(0.5,0.25,0.4,1) forwards;
+    /* animation-timing-function: cubic-bezier(0.5,0.25,0.4,1); */
+}
+
+
+.octagon-svg-dark {
+    animation: none !important;
+    stroke: #000 !important;
+    stroke-width: 5 !important;
+    stroke-dashoffset: 0 !important;
+    fill: rgba(0, 0, 0, 1.0) !important;
+}
+
+.log-points .logo-container .logo-link {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo-text {
+    font-family: "Asket Narrow", sans-serif;
+    text-align: center;
+    font-size: 3.5rem;
+    /* font-size: 2.2rem; */
+    /* font-size: 3vw; */
+    text-decoration: none;
+    color: #fff;
+    letter-spacing: 0.5rem;
+    padding-left: 0.5rem;
+    /* animation: textGlow 2s ease-in-out infinite alternate; */
+
+    /* Center text inside logo */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 0;
+    padding-top: 2.5rem;
+    min-height: 50px;
+}
+
+.log-points .logo-title {
+    font-family: "Asket Narrow", sans-serif;
+    text-align: center;
+    font-size: 2.7vw;
+    text-decoration: none;
+    color: #fff;
+    letter-spacing: 0.5rem;
+    height: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 0;
+}
+
+.fade {
+    animation: fade 0.8s cubic-bezier(0.5,0.25,0.4,1) infinite alternate;
+}
+
+#demo-fade #octagon-logo:nth-child(1) {
+    /* animation: pathOffset 2s cubic-bezier(0.5,0.25,0.4,1) forwards !important; */
+}
+
+/* ANIMATION */
+@keyframes fade {
+    from {
+        opacity: 0.2;
+    }
+    
+    to {
+        opacity: 1.0;
+    }
+}
+
+@keyframes imageGlow {
+    from {
+        filter: drop-shadow(0px 0px 10px rgba(255, 255, 255, 0.4));
+    }
+    
+    to {
+        filter: drop-shadow(0px 0px 20px rgba(255, 255, 255, 0.8));
+    }
+}
+
+@keyframes textGlow {
+    from {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.4), 0 0 10px rgba(255, 255, 255, 0.4), 0 0 10px rgba(255, 255, 255, 0.4), 0 0 10px rgba(255, 255, 255, 0.4);
+    }
+    
+    to {
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.8);
+    }
+}
+
+@keyframes pathOffset {
+    from {
+        stroke-dashoffset: 17540px;
+    }
+
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes pathFill {
+    from {
+        fill: rgba(255, 255, 255, 0.0);
+    }
+
+    to {
+        fill: rgba(255, 255, 255, 1.0);
+    }
+}
+
+/* Media Queries */
+
+
+/* Extra small devices (phones, 600px and down) */
+
+@media only screen and (max-width: 600px) {
+    .nav-container {
+        margin-top: 2em;
+    }
+
+	.logo-text {
+        font-size: 1.25rem;
+        /* font-size: 5vw; */
+    }
+
+    .loading-bar-container {
+        margin-top: 20em;
+    }
+
+    #log-loading-bar {
+        width: 50% !important;
+    }
+
+    .log-points .logo-container {
+        margin-top: 5em;
+    }
+    
+    .log-points .logo-container img {
+        width: 50%;
+    }
+
+    .log-points .logo-title {
+	    font-size: 1rem;
+        letter-spacing: 0.25rem;
+        margin-top: 1rem;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .log-points .logo-title {
+	    font-size: 2.5rem;
+        margin-top: 2.5rem;
+    }
+}
+
+@media only screen and (max-width: 768px) and (orientation: landscape) {
+	.logo-container {
+	    width: 40%;
+	}
+    
+	.logo-text {
+	    font-size: 1rem;
+	}
+
+}
+
+/* Extra Small devices (portrait, 480px and down) */
+
+@media only screen and (max-width: 600px) and (max-height: 480px) {
+    .loading-bar-container {
+        margin-top: 25em !important;
+    }
+
+    .logo-container {
+	    margin-top: 15em !important;
+	}
+}
+
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+
+@media only screen and (min-width: 600px) {}
+
+
+/* Medium devices (landscape tablets, 768px and up) */
+
+@media only screen and (min-width: 768px) {
+	/* For desktop: */
+	
+    .logo-text {
+        font-size: 1rem;
+        margin-top: 1rem;
+	}
+}
+
+
+/* Large devices (laptops/desktops, 992px and up) */
+
+@media only screen and (min-width: 992px) {}
+
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+
+@media only screen and (min-width: 1200px) {}
