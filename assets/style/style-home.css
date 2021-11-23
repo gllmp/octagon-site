@@ -289,7 +289,7 @@ canvas {
 
 @media only screen and (max-width: 600px) {
     .nav-container {
-        margin-top: 2em;
+        margin-top: 1em;
     }
 
 	.logo-text {
