@@ -12,23 +12,6 @@
       <script type="text/javascript" src="https://octagon-exe.com/s/loading-bar.js"></script>
    </head>
    <body>
-      <!-- <div id="home" class="log-points">
-         <div class="nav-container">
-            <p class="load-log"></p>
-            <p class="nav-log"></p>
-         </div>
-         <div class="cover-container">
-            <div class="loading-bar-container">
-               <div id="log-loading-bar" class="ldBar" data-value="0" data-precision="0.1" data-duration="2"></div>            
-            </div>
-            <div class="logo-container hidden">
-               <a class="logo-link" href="https://www.octagon-exe.com/home">
-                  <img src="https://octagon-exe.com/s/LOGO_WHITE.png" alt="octagon logo" />
-                  <p class="logo-title"></p>
-               </a>
-            </div>
-         </div> -->
-
          <script>
             const htmlStr = "<div id='home' class='log-points'><div class='nav-container'><p class='load-log'></p><p class='nav-log'></p></div><div class='cover-container'><div class='loading-bar-container'><div id='log-loading-bar' class='ldBar' data-value='0' data-precision='0.1' data-duration='2'></div></div><div class='logo-container hidden'><a class='logo-link' href='https://www.octagon-exe.com/home'><img src='https://octagon-exe.com/s/LOGO_WHITE.png' alt='octagon logo' /><p class='logo-title'></p></a></div></div>";
             document.body.insertAdjacentHTML('beforeend', htmlStr);
@@ -348,16 +331,6 @@
                      backSpeed: 0,
                      loop: false,
                      onTypingPaused: function(self) {
-                        // document.querySelector(".logo-container").classList.remove("hidden");
-
-                        // var options = {
-                        //    strings: ["ÖCTAGON"],
-                        //    typeSpeed: 20,
-                        //    cursorChar: '',
-                        // };
-
-                        // var typed = new Typed('.logo-text', options);
-
                         if (Detector.WEBGL.isWebGLAvailable() ) {
                            init();
                            animate();
