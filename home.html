@@ -18,15 +18,15 @@
          </script>
 
          <script type="module">
-            import * as THREE from 'https://unpkg.com/three@0.132.0/build/three.module.js';
+            import * as THREE from 'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r132/build/three.module.js';
 
-            import * as Detector from 'https://unpkg.com/three@0.132.0/examples/jsm/WebGL.js';
+            import * as Detector from 'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r132/examples/jsm/WebGL.js';
 
-            import { OrbitControls } from 'https://unpkg.com/three@0.132.0/examples/jsm/controls/OrbitControls.js?module';
+            import { OrbitControls } from 'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r132/examples/jsm/controls/OrbitControls.js';
 
-            import { OBJLoader } from 'https://unpkg.com/three@0.132.0/examples/jsm/loaders/OBJLoader.js?module';
+            import { OBJLoader } from 'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r132/examples/jsm/loaders/OBJLoader.js';
 
-            import { FontLoader } from 'https://unpkg.com/three@0.134.0/examples/jsm/loaders/FontLoader.js?module';
+            import { FontLoader } from 'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r134/examples/jsm/loaders/FontLoader.js';
 
             let camera, controls, scene, renderer;
 
@@ -142,9 +142,10 @@
                function onError() {}
 
                   const loader = new OBJLoader( manager );
-                  loader.load( 'https://raw.githubusercontent.com/gllmp/octagon-site/main/assets/models/obj/Octagon/octagon-logo.obj', function ( obj ) {
-
-                  object = obj;
+                  //loader.load( 'https://raw.githubusercontent.com/gllmp/octagon-site/main/assets/models/obj/Octagon/octagon-logo.obj', function ( obj ) {
+                  loader.load( 'https://cdn.jsdelivr.net/gh/gllmp/octagon-site/assets/models/obj/Octagon/octagon-logo.obj', function ( obj ) {
+                  
+                     object = obj;
 
                }, onProgress, onError );
 
@@ -197,7 +198,7 @@
                
                let textGeometry
 
-               textLoader.load( 'https://raw.githubusercontent.com/gllmp/octagon-site/main/assets/font/SintonyCustom/Sintony-Custom_Regular.json', function ( font ) {
+               textLoader.load( 'https://cdn.jsdelivr.net/gh/gllmp/octagon-site/assets/font/SintonyCustom/Sintony-Custom_Regular.json', function ( font ) {
 
                   textGeometry = new THREE.TextGeometry( 'Ö C T A G O N', {
                         font: font,
