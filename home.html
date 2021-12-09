@@ -29,6 +29,7 @@
             import { FontLoader } from 'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r134/examples/jsm/loaders/FontLoader.js';
 
             let camera, controls, scene, renderer;
+            scene = new THREE.Scene();
 
             let mouseX = 0, mouseY = 0;
 
@@ -54,71 +55,9 @@
 
             let isMobile = window.mobileCheck();
 
-            function init() {               
-               // container
-               const container = document.createElement( 'div' );
-               container.classList.add("threejs-container");
-               document.body.appendChild( container );
-
-               // camera
-               camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.1, 2000 );
-
-               let cameraPosZ;
-               isMobile == true ? cameraPosZ = 6 : cameraPosZ = 5;
-
-               camera.position.set(0, 0, cameraPosZ);
-
-               // scene
-
-               scene = new THREE.Scene();
-               scene.background = new THREE.Color( 0x000000 );
-               scene.fog = new THREE.FogExp2( 0x000000, 0.002 );
-
-               // renderer
-
-               renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
-               renderer.setPixelRatio( window.devicePixelRatio );
-               renderer.setSize( window.innerWidth, window.innerHeight );
-               container.appendChild( renderer.domElement );
-               //document.body.appendChild( renderer.domElement );
-
-               // controls
-               controls = new OrbitControls( camera, renderer.domElement );
-               //controls.listenToKeyEvents( window ); // optional
-
-               //controls.addEventListener( 'change', render ); // call this only in static scenes (i.e., if there is no animation loop)
-
-               controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
-               controls.dampingFactor = 0.05;
-
-               controls.enablePan = false;
-               //controls.screenSpacePanning = false;
-
-               controls.minDistance = 4;
-               controls.maxDistance = 6;
-
-               // controls.maxPolarAngle = Math.PI / 2;
-
-               //controls.target.set(0, 0, 0);
-
-               // lights
-               // const sphere = new THREE.SphereGeometry( 0.5, 16, 8 );
-
-               // light1 = new THREE.PointLight( 0xffffff, 0.5, 0, 100);
-               // light1.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xffffff } ) ) );
-               // scene.add( light1 );
-
-               const ambientLight = new THREE.AmbientLight( 0xcccccc, 0.4 );
-               scene.add( ambientLight );
-
-               const pointLight = new THREE.PointLight( 0xffffff, 0.8 );
-               camera.add( pointLight );
-               scene.add( camera );
-
+            function loadAssets() {
                // model
                let standardMaterial = new THREE.MeshStandardMaterial( {color: 0xffffff, transparent: true, opacity: 1.0 } );
-               let wireframeMaterial = new THREE.MeshStandardMaterial( {color: 0xffffff, wireframe: true } );
-               let pointsMaterial = new THREE.PointsMaterial( { size: 0.1, color: 0xffffff, sizeAttenuation: true} )
 
                const manager = new THREE.LoadingManager( loadModel );
 
@@ -169,31 +108,6 @@
                   //scene.add( objectParticleSystem );
                }
 
-
-               //const planeGeometry = new THREE.PlaneGeometry(50, 50, 25, 25);
-               //const planeMaterial = new THREE.MeshStandardMaterial( {color: 0xffffff, side: THREE.DoubleSide} );
-               //const plane = new THREE.Mesh( planeGeometry, pointsMaterial );
-
-               //plane.position.set(0, -2.5, 0);
-               //plane.rotation.set(1.6, 0, 0);
-
-               let planeGeometry = new THREE.PlaneGeometry(100, 100, 20, 20);
-               let planeMaterial = new THREE.PointsMaterial( { size: 0.05, color: 0xffffff, sizeAttenuation: true} )
-
-               planeParticleSystem = new THREE.ParticleSystem( planeGeometry, planeMaterial );
-               planeParticleSystem.position.set(0, -10, 0);
-               planeParticleSystem.rotation.set(1.6, 0, 0);
-
-               scene.add( planeParticleSystem );
-
-               // sphere
-               sphereParticleSystem = new THREE.ParticleSystem( new THREE.SphereGeometry( 20, 100, 20 ), pointsMaterial );
-               sphereParticleSystem.position.set(0, 0, 0);
-               //sphereParticleSystem.scale.set(10, 10, 10);
-
-               scene.add( sphereParticleSystem );
-
-
                // text
                const textLoader = new THREE.FontLoader();
                
@@ -222,6 +136,95 @@
 
                   scene.add(textMesh);
                });
+            }
+
+            function init() {               
+               // container
+               const container = document.createElement( 'div' );
+               container.classList.add("threejs-container");
+               document.body.appendChild( container );
+
+               // camera
+               camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.1, 2000 );
+
+               let cameraPosZ;
+               isMobile == true ? cameraPosZ = 6 : cameraPosZ = 5;
+
+               camera.position.set(0, 0, cameraPosZ);
+
+               // scene
+               //scene = new THREE.Scene();
+               scene.background = new THREE.Color( 0x000000 );
+               scene.fog = new THREE.FogExp2( 0x000000, 0.002 );
+
+               // renderer
+
+               renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
+               renderer.setPixelRatio( window.devicePixelRatio );
+               renderer.setSize( window.innerWidth, window.innerHeight );
+               container.appendChild( renderer.domElement );
+               //document.body.appendChild( renderer.domElement );
+
+               // controls
+               controls = new OrbitControls( camera, renderer.domElement );
+               //controls.listenToKeyEvents( window ); // optional
+
+               //controls.addEventListener( 'change', render ); // call this only in static scenes (i.e., if there is no animation loop)
+
+               controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
+               controls.dampingFactor = 0.05;
+
+               controls.enablePan = false;
+               //controls.screenSpacePanning = false;
+
+               controls.minDistance = 4;
+               controls.maxDistance = 6;
+
+               // controls.maxPolarAngle = Math.PI / 2;
+
+               //controls.target.set(0, 0, 0);
+
+               // lights
+               // const sphere = new THREE.SphereGeometry( 0.5, 16, 8 );
+
+               // light1 = new THREE.PointLight( 0xffffff, 0.5, 0, 100);
+               // light1.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xffffff } ) ) );
+               // scene.add( light1 );
+
+               const ambientLight = new THREE.AmbientLight( 0xcccccc, 0.4 );
+               scene.add( ambientLight );
+
+               const pointLight = new THREE.PointLight( 0xffffff, 0.8 );
+               camera.add( pointLight );
+               scene.add( camera );
+
+               // model
+               //let standardMaterial = new THREE.MeshStandardMaterial( {color: 0xffffff, transparent: true, opacity: 1.0 } );
+               let wireframeMaterial = new THREE.MeshStandardMaterial( {color: 0xffffff, wireframe: true } );
+               let pointsMaterial = new THREE.PointsMaterial( { size: 0.1, color: 0xffffff, sizeAttenuation: true} )
+
+               //const planeGeometry = new THREE.PlaneGeometry(50, 50, 25, 25);
+               //const planeMaterial = new THREE.MeshStandardMaterial( {color: 0xffffff, side: THREE.DoubleSide} );
+               //const plane = new THREE.Mesh( planeGeometry, pointsMaterial );
+
+               //plane.position.set(0, -2.5, 0);
+               //plane.rotation.set(1.6, 0, 0);
+
+               let planeGeometry = new THREE.PlaneGeometry(100, 100, 20, 20);
+               let planeMaterial = new THREE.PointsMaterial( { size: 0.05, color: 0xffffff, sizeAttenuation: true} )
+
+               planeParticleSystem = new THREE.ParticleSystem( planeGeometry, planeMaterial );
+               planeParticleSystem.position.set(0, -10, 0);
+               planeParticleSystem.rotation.set(1.6, 0, 0);
+
+               scene.add( planeParticleSystem );
+
+               // sphere
+               sphereParticleSystem = new THREE.ParticleSystem( new THREE.SphereGeometry( 20, 100, 20 ), pointsMaterial );
+               sphereParticleSystem.position.set(0, 0, 0);
+               //sphereParticleSystem.scale.set(10, 10, 10);
+
+               scene.add( sphereParticleSystem );
 
                //
                //document.addEventListener( 'mousemove', onDocumentMouseMove );
@@ -304,6 +307,9 @@
             //const path = document.querySelector("path");
             //console.log(path.getTotalLength());
 
+            // load assets
+            loadAssets();
+
             // logo title
             let loadingBar = new ldBar("#log-loading-bar", {
                "stroke": '#fff',
@@ -311,9 +317,10 @@
                "preset": "line",
                "duration": 2.5
             });
-
+            
             loadingBar.set(100);
-                     // nav log
+            
+            // nav log
             var loadData = new Typed('.load-log', {
                strings: ['loading octagon software...\n\n sending request to server...\n\n TLS authentication pending...\n\n data encryption ok...\n\n searching database...\n\n assets download ok...\n\n\n\n ::login successful::^500\n ' ],
                typeSpeed: 1,
