@@ -308,8 +308,12 @@
             //console.log(path.getTotalLength());
 
             // load assets
-            loadAssets();
-
+            if (Detector.WEBGL.isWebGLAvailable() ) {
+               loadAssets();
+            } else {
+               
+            }
+            
             // logo title
             let loadingBar = new ldBar("#log-loading-bar", {
                "stroke": '#fff',
