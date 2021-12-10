@@ -75,7 +75,7 @@ canvas {
 /* LOGO */
 .nav-container {
     width: 20%;
-    height: 100%;
+    height: auto;
     margin-top: 4em;
     margin-left: 2em;
     font-size: 12px;
